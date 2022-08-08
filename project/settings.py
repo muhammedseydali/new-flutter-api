@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Api',
+    'Cars',
     'rest_framework',
     'rest_framework_simplejwt',
 ]

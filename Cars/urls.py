@@ -5,9 +5,9 @@ from .import views
 
 router = DefaultRouter()
 
-router.register('cars', views.Cars, basename='cars')
-router.register('cart', views.Cart, basename='instructors')
-router.register('order', views.Order, basename='instructors')
+router.register('cars', views.CarsView, basename='cars')
+router.register('cart', views.CartView, basename='instructors')
+router.register('order', views.OrdersView, basename='instructors')
 
 
 

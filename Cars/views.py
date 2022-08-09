@@ -6,12 +6,19 @@ from rest_framework import permissions, viewsets
 from rest_framework.exceptions import APIException
 from rest_framework.decorators import permission_classes
 from .models import Cars, Cart, Order
-from .serializers import CarsSerializer, CartSerializer, OrderSerializer
+from .serializers import CarSerializer, CartSerializer, OrderSerializer
 # Create your views here.
 
 
-class Cars(ModelViewSet):
-    queryset = Cars.objects.filter(is_deleted=False).order_by('-date_added')
-    serializer_class = CarsSerializer
-    
+class CarsView(ModelViewSet):
+    queryset = Cars.objects.all()
+    serializer_class = CarSerializer
 
+
+class OrdersView(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class CartView(ModelViewSet):
+    queryset = Cart.objects.all()
+    serializer_class = CartSerializer    

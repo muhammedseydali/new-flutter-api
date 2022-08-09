@@ -33,4 +33,4 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ['user','car_id','car_color','cart_quantity','cart_created_by','cart_is_deleted']
 
     def get_user(self, obj):
-        return obj.user.full_name        
+        return obj.user.user__name        

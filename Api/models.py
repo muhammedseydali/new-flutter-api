@@ -36,7 +36,7 @@ class MyAccountManager(BaseUserManager):
             user.save(using=self._db)
             return user   
 
-class Account(AbstractBaseUser):
+class account(AbstractBaseUser):
     GENDER_CHOICES = (
         ('Male', 'Male'),
         ('Female', 'Female'),
@@ -46,7 +46,7 @@ class Account(AbstractBaseUser):
     full_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=15,unique=False,blank=True)
     email = models.EmailField(max_length=100,unique=True)
-    dob = models.DateField()
+    dob = models.DateField(auto_now_add=True)
     profile_picture = models.ImageField(upload_to='images/',null=True)
     gender = models.CharField( max_length=6, choices=GENDER_CHOICES,default='Male')
     

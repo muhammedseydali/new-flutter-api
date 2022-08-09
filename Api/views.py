@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.decorators import api_view, parser_classes,authentication_classes,permission_classes
 from rest_framework.views import APIView
-from .models import Account
+from .models import account
 from .serializers import UserDataSerializer, UserRegister
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -36,7 +36,7 @@ class RegistersViews(generics.CreateAPIView):
 class UsersLists(APIView):
     permission_classes = [IsAdminUser]
     def get(self,request):
-        user = Account.objects.all()
+        user = account.objects.all()
         serializer = UserDataSerializer(user,many=True)
         return Response(serializer.data)
 
@@ -45,14 +45,14 @@ class UserDetails(APIView):
     permission_classes = [IsAdminUser]
     def get(self,request,pk):
         id = pk
-        user = Account.objects.get(pk=id)
+        user = account.objects.get(pk=id)
         serializer = UserDataSerializer(user)
         return Response(serializer.data)
     
     
     def put(self,request,pk):
         id = pk
-        user = Account.objects.get(pk=id)
+        user = account.objects.get(pk=id)
         serializer = UserDataSerializer(user,data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -62,7 +62,7 @@ class UserDetails(APIView):
     
     def delete(self,request,pk):
         id = pk
-        user = Account.objects.get(pk=id)
+        user = account.objects.get(pk=id)
         user.delete()
         return Response({'message':'user deleted'})
     

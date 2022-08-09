@@ -33,7 +33,7 @@ class RegistersViews(generics.CreateAPIView):
 
 
 
-class UsersLists(APIView):
+class   UsersLists(APIView):
     permission_classes = [IsAdminUser]
     def get(self,request):
         user = account.objects.all()
@@ -43,16 +43,18 @@ class UsersLists(APIView):
 
 class UserDetails(APIView):
     permission_classes = [IsAdminUser]
+
+    def get_id(self,pk):
+        return account.objects.get(pk=pk)
+        
     def get(self,request,pk):
-        id = pk
-        user = account.objects.get(pk=id)
+        user = self.get_id(pk)
         serializer = UserDataSerializer(user)
         return Response(serializer.data)
     
     
     def put(self,request,pk):
-        id = pk
-        user = account.objects.get(pk=id)
+        user = self.get_id(pk)
         serializer = UserDataSerializer(user,data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -61,8 +63,7 @@ class UserDetails(APIView):
     
     
     def delete(self,request,pk):
-        id = pk
-        user = account.objects.get(pk=id)
+        user = self.get_id(pk)
         user.delete()
         return Response({'message':'user deleted'})
     

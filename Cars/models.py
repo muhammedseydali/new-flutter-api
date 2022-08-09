@@ -10,10 +10,10 @@ class Cars(models.Model):
     car_color = models.CharField(max_length=50)
     car_price = models.IntegerField()
     car_image = models.ImageField(upload_to='images/',null=True)
-    car_description = models.TextField(max_length=100)
+    car_description = models.TextField(max_length=100, null=True)
     car_status = models.BooleanField(default=True)
     car_created_at = models.DateTimeField(auto_now_add=True)
-    car_created_by = models.ForeignKey('Api.account',on_delete=models.CASCADE)
+    car_created_by = models.ForeignKey('Api.account',on_delete=models.CASCADE, null=True)
     car_is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Cart(models.Model):
     car_id = models.ForeignKey(Cars, on_delete=models.CASCADE)
     car_color = models.CharField(max_length=50)
     cart_quantity = models.IntegerField()
-    cart_created_by = models.ForeignKey('Api.account',on_delete=models.CASCADE)
+    cart_created_by = models.OneToOneField('Api.account',on_delete=models.CASCADE)
     cart_is_deleted = models.BooleanField(default=False)
 
     def __str__(self):

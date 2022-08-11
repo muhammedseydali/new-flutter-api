@@ -73,7 +73,7 @@ class UserDetails(APIView):
     
 class getView(APIView):
     def get(self,request):
-        data = Account.objects.all()
+        data = account.objects.all()
         serializer = UserDataSerializer(data, many=True)
         return Response(serializer.data)
 

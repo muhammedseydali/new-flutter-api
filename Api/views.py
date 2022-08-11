@@ -32,6 +32,12 @@ class RegistersViews(generics.CreateAPIView):
         })
 
 
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+        return super().get_parsers()     
+
+
 
 class   UsersLists(APIView):
     permission_classes = [IsAdminUser]
@@ -39,6 +45,11 @@ class   UsersLists(APIView):
         user = account.objects.all()
         serializer = UserDataSerializer(user,many=True)
         return Response(serializer.data)
+
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+        return super().get_parsers()    
 
 
 class UserDetails(APIView):
@@ -66,6 +77,11 @@ class UserDetails(APIView):
         user = self.get_id(pk)
         user.delete()
         return Response({'message':'user deleted'})
+
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+        return super().get_parsers()      
     
     
     
@@ -76,6 +92,11 @@ class getView(APIView):
         data = account.objects.all()
         serializer = UserDataSerializer(data, many=True)
         return Response(serializer.data)
+
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+        return super().get_parsers()    
 
 
 class RegisterView(APIView):
@@ -103,3 +124,8 @@ class RegisterView(APIView):
         else:
             data = serializer.errors
         return Response(data)
+
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+        return super().get_parsers()
